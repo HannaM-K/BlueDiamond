@@ -5,28 +5,23 @@ using System.Threading.Tasks;
 
 namespace BlueDiamond.Models
 {
-    public class Cart
+    public class Order
     {
-        public List<OrderPosition> Positions = new List<OrderPosition>();
+        public List<OrderPosition> Positions { get; set; }
         public double Sum
         {
             get { return GetSumAmount(); }
             set { Sum = value; }
         }
-        //public Order()
-        //{
-        //    Positions = new List<OrderPosition>();
-        //}
+        public Order()
+        {
+            Positions = new List<OrderPosition>();
+        }
         //public double DeliveryPrice { get; set; }
 
         private double GetSumAmount()
         {
             return Positions == null ? 0 : Positions.Select(p => p.Sum).Sum();
-        }
-
-        public virtual void AddItem(Product product, int quantity)
-        {
-           Positions.Add(new OrderPosition { Product = product, Quantity = quantity });
         }
     }
 }

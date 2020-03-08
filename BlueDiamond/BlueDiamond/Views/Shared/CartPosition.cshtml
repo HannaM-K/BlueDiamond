@@ -1,0 +1,17 @@
+﻿@model OrderPosition
+
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-3">
+        <img src="images/background8.png">
+        <p>@Model.Product.Name</p>
+    </div>
+    <div class="col-md-3">
+        <p>@Model.Quantity</p>
+    </div>
+    <div class="col-md-3">
+        <p>@Model.Product.Price.ToString("c")</p>
+    </div>
+    <div class="col-md-3">
+        <p>@Model.Sum</p>
+    </div>
+</div>

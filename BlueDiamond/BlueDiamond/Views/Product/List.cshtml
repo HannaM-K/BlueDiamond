@@ -1,10 +1,16 @@
-﻿@model IEnumerable<Product>
+﻿@model ProductListViewModel
 
-@foreach (var product in Model)
-{
-    <div>
-        <h3>@product.Name</h3>
-        @product.Description
-        <h4>@product.Price.ToString("c")</h4>
+
+<div class="container text-center bg-light ">
+    <div class="row h-100 justify-content-center align-items-center">
+        <h2 class="my-4">Kategoria: @Model.CategoryName</h2>
+        <div class="container ">
+            <div class="row">
+                @foreach (var product in Model.Products)
+                {
+                   @Html.Partial("ProductDetails", product);
+                }
+            </div>
+        </div>
     </div>
-}
+</div>

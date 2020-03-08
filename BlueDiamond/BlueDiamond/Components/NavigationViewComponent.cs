@@ -9,8 +9,8 @@ namespace BlueDiamond.Components
 {
     public class NavigationViewComponent : ViewComponent
     {
-        private DemoRepository repository;
-        public NavigationViewComponent(DemoRepository repo)
+        private ProductRepository repository;
+        public NavigationViewComponent(ProductRepository repo)
         {
             repository = repo;
         }
@@ -18,7 +18,7 @@ namespace BlueDiamond.Components
         public IViewComponentResult Invoke()
         {
             return View(repository.Products
-                .Select(p => p.CategoryID)
+                .Select(p => p.CategoryName)
                 .Distinct()
                 .OrderBy(c => c));
         }

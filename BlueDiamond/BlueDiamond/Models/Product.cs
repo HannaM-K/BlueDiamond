@@ -15,14 +15,15 @@ namespace BlueDiamond.Models
         /// CategoryID daje zamiast CategoryName
         /// zeby byl to klucz obcy do tabeli z kategoriami
         /// </summary>
-        public string CategoryID { get; set; }
+        public string CategoryName { get; set; }
 
-        public Product(int id, string name, string description, double price)
+        public Product(int id, string name, string description, double price, string categoryName)
         {
             this.ID = id;
             this.Name = name;
             this.Description = description;
             this.Price = price;
+            this.CategoryName = categoryName;
         }
     }
 }

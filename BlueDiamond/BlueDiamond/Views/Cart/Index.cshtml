@@ -1,0 +1,50 @@
+﻿@model Cart
+
+<div class="container text-center bg-light p-3 h-100">
+    <h3 class="mb-4">Koszyk</h3>
+    <div class="row  justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Produkt</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Ilość</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Cena</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Suma</p>
+                </div>
+            </div>
+            @foreach (var position in Model.Positions)
+            {
+                @Html.Partial("CartPosition", position);
+            }
+
+        </div>
+        <div class="col-md-6">
+            <div class="row ">
+                <div class="col-md-6">
+                    <p>Suma cen produktów:</p>
+                    <p>Dostawa:</p>
+                    <p>Razem:</p>
+                </div>
+                <div class="col-md-6">
+                    <p>45 zł</p>
+                    <p>10 zł</p>
+                    <p>55 zł</p>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <button class="btn btn-light" data-toggle="button" aria-pressed="true"
+                            autocomplete="off">
+                        Zapłać
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

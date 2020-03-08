@@ -14,9 +14,13 @@ namespace BlueDiamond
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            // dodanie komentarza
-            services.AddTransient<DemoRepository>();
+            services.AddTransient<ProductRepository>();
+            services.AddScoped<Cart>(s => SessionCart.GetCart(s));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<OrdersRepository>();
             services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -24,9 +28,15 @@ namespace BlueDiamond
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
             }
-            app.UseStatusCodePages();
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
+
             app.UseStaticFiles();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

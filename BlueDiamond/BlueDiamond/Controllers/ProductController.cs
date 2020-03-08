@@ -1,4 +1,5 @@
 ﻿using BlueDiamond.Models;
+using BlueDiamond.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,19 @@ namespace BlueDiamond.Controllers
 {
     public class ProductController : Controller
     {
-        private DemoRepository repository;
-        public ProductController(DemoRepository repo)
+        private ProductRepository repository;
+        public ProductController(ProductRepository repo)
         {
             repository = repo;
         }
 
-        public ViewResult List()
+        public ViewResult List(string categoryName)
         {
-           return View(repository.Products);
+            return View(new ProductListViewModel
+            {
+                Products = repository.Products.Where(p => categoryName == null || p.CategoryName == categoryName),
+                CategoryName = categoryName == null ? "Wszystkie" : categoryName
+            });
         }
     }
 }
