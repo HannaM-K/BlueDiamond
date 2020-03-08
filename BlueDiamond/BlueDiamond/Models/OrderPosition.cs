@@ -9,10 +9,17 @@ namespace BlueDiamond.Models
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
+        private double sum;
         public double Sum
         {
-            get { return Product == null ? 0 : Quantity * Product.Price; }
-            set { Sum = value; }
+            get
+            {
+                return Product == null ? 0 : (Quantity * Product.Price);
+            }
+            set
+            {
+                sum = value;
+            }
         }
     }
 }

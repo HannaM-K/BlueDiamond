@@ -24,13 +24,21 @@ namespace BlueDiamond.Controllers
         }
         public RedirectToActionResult AddToCart(int ID)
         {
-                Product product = repository.Products.FirstOrDefault(p => p.ID == ID);
+            Product product = repository.Products.ToList().FirstOrDefault(p => p.ID == ID);
 
             if (product != null)
             {
-                cart.Positions.Add(new OrderPosition { Product= product, Quantity = 1 });
+                cart.AddItem(product, 1);
             }
-            return RedirectToAction("Index");
+            try
+            {
+                return RedirectToAction("Index");
+            }
+            catch (StackOverflowException exc)
+            {
+                var help = 2;
+                throw;
+            }
         }
     }
 }

@@ -20,7 +20,8 @@
             </div>
             @foreach (var position in Model.Positions)
             {
-                @Html.Partial("CartPosition", position);
+                <partial name="CartPosition" model="position"/>
+                @*@Html.Partial("CartPosition", position);*@
             }
 
         </div>

@@ -7,11 +7,11 @@ namespace BlueDiamond.Models
 {
     public class OrdersRepository
     {
-        public List<Order> Orders { get; set; }
+        //public List<Order> Orders { get; set; }
 
-        public OrdersRepository()
-        {
-            Orders = new List<Order>();
-        }
+        //public OrdersRepository()
+        //{
+        //    Orders = new List<Order>();
+        //}
     }
 }

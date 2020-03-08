@@ -7,26 +7,23 @@ namespace BlueDiamond.Models
 {
     public class Cart
     {
-        public List<OrderPosition> Positions = new List<OrderPosition>();
-        public double Sum
-        {
-            get { return GetSumAmount(); }
-            set { Sum = value; }
-        }
-        //public Order()
+        private List<OrderPosition> positions = new List<OrderPosition>();
+        //public double Sum
         //{
-        //    Positions = new List<OrderPosition>();
+        //    get { return GetSumAmount(); }
+        //    set { Sum = value; }
         //}
-        //public double DeliveryPrice { get; set; }
 
-        private double GetSumAmount()
-        {
-            return Positions == null ? 0 : Positions.Select(p => p.Sum).Sum();
-        }
+        //private double GetSumAmount()
+        //{
+        //    return Positions == null ? 0 : Positions.Select(p => p.Sum).Sum();
+        //}
 
         public virtual void AddItem(Product product, int quantity)
         {
-           Positions.Add(new OrderPosition { Product = product, Quantity = quantity });
+            positions.Add(new OrderPosition { Product = product, Quantity = quantity });
         }
+        public virtual IEnumerable<OrderPosition> Positions => positions;
+
     }
 }

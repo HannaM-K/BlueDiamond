@@ -9,7 +9,8 @@ namespace BlueDiamond.Extensions
 {
     public static class SessionExtension
     {
-        public static void SetJson(this ISession session, string key, object value)
+        public static void SetJson(this ISession session, string key,
+          object value)
         {
             session.SetString(key, JsonConvert.SerializeObject(value));
         }
@@ -17,8 +18,8 @@ namespace BlueDiamond.Extensions
         public static T GetJson<T>(this ISession session, string key)
         {
             var sessionData = session.GetString(key);
-            return sessionData == null ?
-                default(T) : JsonConvert.DeserializeObject<T>(sessionData);
+            return sessionData == null
+                ? default(T) : JsonConvert.DeserializeObject<T>(sessionData);
         }
     }
 }

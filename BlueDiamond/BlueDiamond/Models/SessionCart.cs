@@ -20,6 +20,7 @@ namespace BlueDiamond.Models
             cart.Session = session;
             return cart;
         }
+
         [JsonIgnore]
         public ISession Session { get; set; }
 
