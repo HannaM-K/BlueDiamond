@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BlueDiamond.Views.Shared
+namespace BlueDiamond.Views.Product
 {
-    public class ProductDetailsModel : PageModel
+    public class ProductModel : PageModel
     {
         public void OnGet()
         {

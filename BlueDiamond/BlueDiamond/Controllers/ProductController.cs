@@ -24,5 +24,10 @@ namespace BlueDiamond.Controllers
                 CategoryName = categoryName == null ? "Wszystkie" : categoryName
             });
         }
+
+        public ViewResult ProductDetails(int productID)
+        {
+            return View(productID);
+        }
     }
 }

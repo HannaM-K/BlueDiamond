@@ -18,10 +18,27 @@ namespace BlueDiamond.Controllers
             cart = cartService;
         }
 
+        public RedirectToActionResult ShowCart()
+        {
+            if (cart.Positions.Count() == 0)
+            {
+                return RedirectToAction("EmptyCart");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        public ViewResult EmptyCart()
+        {
+            return View();
+        }
+
         public ViewResult Index()
         {
             return View(cart);
         }
+
         public RedirectToActionResult AddToCart(int ID)
         {
             Product product = FindProductByID(ID);
@@ -41,7 +58,7 @@ namespace BlueDiamond.Controllers
                 cart.RemoveItem(product);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowCart");
         }
 
         private Product FindProductByID(int productID)
