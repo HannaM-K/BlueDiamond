@@ -24,14 +24,29 @@ namespace BlueDiamond.Controllers
         }
         public RedirectToActionResult AddToCart(int ID)
         {
-            Product product = repository.Products.ToList().FirstOrDefault(p => p.ID == ID);
-
+            Product product = FindProductByID(ID);
             if (product != null)
             {
                 cart.AddItem(product, 1);
             }
 
             return RedirectToAction("Index");
+        }
+
+        public RedirectToActionResult RemoveFromCart(int ID)
+        {
+            Product product = FindProductByID(ID);
+            if (product != null)
+            {
+                cart.RemoveItem(product);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        private Product FindProductByID(int productID)
+        {
+            return repository.Products.ToList().FirstOrDefault(p => p.ID == productID);
         }
     }
 }

@@ -14,4 +14,13 @@
     <div class="col-md-3">
         <p>@Model.Sum</p>
     </div>
+    <div class="col-md-3">
+        <form asp-action="RemoveFromCart" method="post">
+            <input type="hidden" name="ID" value="@Model.Product.ID"/>
+            <button type="submit" class="btn btn-light" data-toggle="button" aria-pressed="true"
+                    autocomplete="off">
+                Usuń
+            </button>
+        </form>
+    </div>
 </div>
