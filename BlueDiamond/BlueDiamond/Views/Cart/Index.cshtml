@@ -21,7 +21,6 @@
             @foreach (var position in Model.Positions)
             {
                 <partial name="CartPosition" model="position"/>
-                @*@Html.Partial("CartPosition", position);*@
             }
 
         </div>
@@ -33,9 +32,9 @@
                     <p>Razem:</p>
                 </div>
                 <div class="col-md-6">
-                    <p>45 zł</p>
+                    <p>@Model.Sum</p>
                     <p>10 zł</p>
-                    <p>55 zł</p>
+                    <p>@((Model.Sum  + 10).ToString("c"))</p>
                 </div>
             </div>
             <div class="row mt-4">

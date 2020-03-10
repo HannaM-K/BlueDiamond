@@ -30,15 +30,8 @@ namespace BlueDiamond.Controllers
             {
                 cart.AddItem(product, 1);
             }
-            try
-            {
-                return RedirectToAction("Index");
-            }
-            catch (StackOverflowException exc)
-            {
-                var help = 2;
-                throw;
-            }
+
+            return RedirectToAction("Index");
         }
     }
 }
