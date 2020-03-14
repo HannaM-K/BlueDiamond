@@ -20,14 +20,19 @@ namespace BlueDiamond.Controllers
         {
             return View(new ProductListViewModel
             {
-                Products = repository.Products.Where(p => categoryNames == null || p.categoryNames.Exists(c => c == categoryNames)),
-                categoryNames = categoryNames == null ? "Wszystkie" : categoryNames
+                Products = repository.Products.Where(p => categoryNames == null || p.CategoryNames.Exists(c => c == categoryNames)),
+                CategoryNames = categoryNames == null ? "Wszystkie" : categoryNames
             });
         }
 
-        public ViewResult ProductDetails(int productID)
+        public ViewResult ProductDetails(int ID)
         {
-            return View(productID);
+            Product product = FindProductByID(ID);
+            return View(product);
+        }
+        private Product FindProductByID(int productID)
+        {
+            return repository.Products.ToList().FirstOrDefault(p => p.ID == productID);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BlueDiamond.Models
         /// CategoryID daje zamiast categoryNames
         /// zeby byl to klucz obcy do tabeli z kategoriami (przyszłość)
         /// </summary>
-        public List<string> categoryNames { get; set; }
+        public List<string> CategoryNames { get; set; }
 
         public Product(int id, string name, string description, double price, List<string> categoryNames)
         {
@@ -23,7 +23,7 @@ namespace BlueDiamond.Models
             this.Name = name;
             this.Description = description;
             this.Price = price;
-            this.categoryNames = categoryNames;
+            this.CategoryNames = categoryNames;
         }
     }
 }

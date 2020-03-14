@@ -18,7 +18,7 @@ namespace BlueDiamond.Components
         public IViewComponentResult Invoke()
         {
             return View(repository.Products
-                .SelectMany(p => p.categoryNames.Select(n => n))
+                .SelectMany(p => p.CategoryNames.Select(n => n))
                 .Distinct()
                 .OrderBy(c => c));
         }

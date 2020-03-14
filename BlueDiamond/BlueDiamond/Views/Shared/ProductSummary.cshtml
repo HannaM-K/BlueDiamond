@@ -1,18 +1,18 @@
 ﻿@model Product
 
 <div class="col-sm">
-    <a asp-controller="Product" asp-action="ProductDetails"  asp-route-productID="@Model.ID">
+    <a asp-controller="Product" asp-action="ProductDetails"  asp-route-ID="@Model.ID">
         <img src="./images/background7.png" />
     </a>
     <div class="container">
         <div class="row m-2">
             <p class="mr-1 mt-3">@Model.Name</p>
             <strong class=" ml-auto mt-3">@Model.Price.ToString("c")</strong>
-            <form id="@Model.ID" asp-action="AddToCart" asp-controller="Cart" method="post">
+            <form id="@Model.ID" class="ml-2" asp-action="AddToCart" asp-controller="Cart" method="post">
                 <input type="hidden" asp-for="ID" />
                 <button type="submit"
                         class="btn btn-light ml-auto mt-2"
-                        style="height: 4vh;"
+                        style="height: 5vh;"
                         data-toggle="button"
                         aria-pressed="true"
                         autocomplete="off">
