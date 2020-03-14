@@ -12,18 +12,18 @@ namespace BlueDiamond.Models
         public string Description { get; set; }
         public double Price { get; set; }
         /// <summary>
-        /// CategoryID daje zamiast CategoryName
-        /// zeby byl to klucz obcy do tabeli z kategoriami
+        /// CategoryID daje zamiast categoryNames
+        /// zeby byl to klucz obcy do tabeli z kategoriami (przyszłość)
         /// </summary>
-        public string CategoryName { get; set; }
+        public List<string> categoryNames { get; set; }
 
-        public Product(int id, string name, string description, double price, string categoryName)
+        public Product(int id, string name, string description, double price, List<string> categoryNames)
         {
             this.ID = id;
             this.Name = name;
             this.Description = description;
             this.Price = price;
-            this.CategoryName = categoryName;
+            this.categoryNames = categoryNames;
         }
     }
 }

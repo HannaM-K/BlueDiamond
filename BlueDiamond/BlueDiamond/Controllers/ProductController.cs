@@ -16,12 +16,12 @@ namespace BlueDiamond.Controllers
             repository = repo;
         }
 
-        public ViewResult List(string categoryName)
+        public ViewResult List(string categoryNames)
         {
             return View(new ProductListViewModel
             {
-                Products = repository.Products.Where(p => categoryName == null || p.CategoryName == categoryName),
-                CategoryName = categoryName == null ? "Wszystkie" : categoryName
+                Products = repository.Products.Where(p => categoryNames == null || p.categoryNames.Exists(c => c == categoryNames)),
+                categoryNames = categoryNames == null ? "Wszystkie" : categoryNames
             });
         }
 

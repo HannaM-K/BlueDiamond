@@ -44,23 +44,29 @@
                        asp-action="List"
                        asp-controller="Product">Wszystkie</a>
 
-                    @foreach (var categoryName in Model)
+                    @foreach (var categoryNames in Model)
                     {
                         <a class="dropdown-item"
                            asp-action="List"
                            asp-controller="Product"
-                           asp-route-categoryName="@categoryName">@categoryName</a>
+                           asp-route-categoryNames="@categoryNames">@categoryNames</a>
                     }
                 </div>
             </li>
             <li class="nav-item active">
-                <a class="nav-link ml-5" href="#">Nowości <span class="sr-only">(current)</span></a>
+                <a class="nav-link ml-5" asp-action="List"
+                   asp-controller="Product"
+                   asp-route-categoryNames="Nowości">Nowości<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link ml-5" href="#">Promocje <span class="sr-only">(current)</span></a>
+                <a class="nav-link ml-5" asp-action="List"
+                   asp-controller="Product"
+                   asp-route-categoryNames="Promocje">Promocje<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link ml-5" href="#">Bestsellery <span class="sr-only">(current)</span></a>
+                <a class="nav-link ml-5" asp-action="List"
+                   asp-controller="Product"
+                   asp-route-categoryNames="Bestsellery">Bestsellery<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
