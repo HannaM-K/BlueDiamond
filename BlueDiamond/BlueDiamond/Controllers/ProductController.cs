@@ -1,4 +1,5 @@
 ﻿using BlueDiamond.Models;
+using BlueDiamond.Models.Interfaces;
 using BlueDiamond.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,18 +11,18 @@ namespace BlueDiamond.Controllers
 {
     public class ProductController : Controller
     {
-        private ProductRepository repository;
-        public ProductController(ProductRepository repo)
+        private IProductRepository repository;
+        public ProductController(IProductRepository repo)
         {
             repository = repo;
         }
 
-        public ViewResult List(string categoryNames)
+        public ViewResult List(string categoryName)
         {
             return View(new ProductListViewModel
             {
-                Products = repository.Products.Where(p => categoryNames == null || p.CategoryNames.Exists(c => c == categoryNames)),
-                CategoryNames = categoryNames == null ? "Wszystkie" : categoryNames
+                Products = repository.Products.Where(p => categoryName == null || p.Categories.Any(c => c.Name == categoryName)),
+                CategoryNames = categoryName == null ? "Wszystkie" : categoryName
             });
         }
 

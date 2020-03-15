@@ -1,4 +1,5 @@
 ﻿using BlueDiamond.Models;
+using BlueDiamond.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ namespace BlueDiamond.Controllers
 {
     public class CartController : Controller
     {
-        private ProductRepository repository;
+        private IProductRepository repository;
         private Cart cart;
 
-        public CartController(ProductRepository repo, Cart cartService)
+        public CartController(IProductRepository repo, Cart cartService)
         {
             repository = repo;
             cart = cartService;

@@ -1,4 +1,5 @@
 ﻿using BlueDiamond.Models;
+using BlueDiamond.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,8 @@ namespace BlueDiamond.Components
 {
     public class NavigationViewComponent : ViewComponent
     {
-        private ProductRepository repository;
-        public NavigationViewComponent(ProductRepository repo)
+        private IProductRepository repository;
+        public NavigationViewComponent(IProductRepository repo)
         {
             repository = repo;
         }
@@ -18,7 +19,7 @@ namespace BlueDiamond.Components
         public IViewComponentResult Invoke()
         {
             return View(repository.Products
-                .SelectMany(p => p.CategoryNames.Select(n => n))
+                .SelectMany(p => p.Categories.Select(n => n))
                 .Distinct()
                 .OrderBy(c => c));
         }

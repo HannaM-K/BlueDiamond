@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace BlueDiamond.Models
 {
-    public class OrderPosition
+    public class Order
     {
         public int ID { get; set; }
-        public Product Product { get; set; }
-        public int Quantity { get; set; }
-        public double Sum => (Quantity * Product.Price);
+        public List<OrderPosition> OrderPositions { get; set; }
     }
 }

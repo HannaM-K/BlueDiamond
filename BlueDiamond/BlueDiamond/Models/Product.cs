@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,19 +12,15 @@ namespace BlueDiamond.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
-        /// <summary>
-        /// CategoryID daje zamiast categoryNames
-        /// zeby byl to klucz obcy do tabeli z kategoriami (przyszłość)
-        /// </summary>
-        public List<string> CategoryNames { get; set; }
+        public List<Category> Categories { get; set; }
 
-        public Product(int id, string name, string description, double price, List<string> categoryNames)
+        public Product() { }
+        public Product(string name, string description, double price, List<Category> categories)
         {
-            this.ID = id;
             this.Name = name;
             this.Description = description;
             this.Price = price;
-            this.CategoryNames = categoryNames;
+            this.Categories = categories;
         }
     }
 }
