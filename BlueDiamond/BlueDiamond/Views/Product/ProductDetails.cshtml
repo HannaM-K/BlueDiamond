@@ -27,26 +27,26 @@
             </a>
         </div>
         <!-- Opis produktu-->
-        <div class="col-md-6 container " style="max-width: 40vh; " id="productDescriptionContainer">
+        <div class="col-6 container " style="max-width: 40vh; " id="productDescriptionContainer">
             <h3 class="mb-5">@Model.Name</h3>
             <div class="row">
-                <div class="col-sm">
+                <div class="col">
                     <p>Cena:</p>
                 </div>
-                <div class="col-sm">
+                <div class="col">
                     <p>@Model.Price.ToString("c")</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm">
+                <div class="col">
                     <p>Opis:</p>
                 </div>
-                <div class="col-sm">
+                <div class="col">
                     <p>@Model.Description</p>
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-sm">
+                <div class="col">
                     <form id="@Model.ID" asp-action="AddToCart" asp-controller="Cart" method="post">
                         <input type="hidden" asp-for="ID" />
                         <button class="btn btn-light " type="submit" data-toggle="button" aria-pressed="true" autocomplete="off">
