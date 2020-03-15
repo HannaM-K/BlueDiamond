@@ -1,40 +1,54 @@
 ﻿@model Cart
 
-<div class="container text-center bg-light p-3 h-100">
+<div class="container text-center bg-light p-3 h-100" style="min-height: 100vh">
     <h3 class="mb-4">Koszyk</h3>
     <div class="row  justify-content-center align-items-center">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-3">
+        <div class="col-md-8">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-2">
                     <p>Produkt</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-2">
                     <p>Ilość</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-2 ">
                     <p>Cena</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-2 ">
                     <p>Suma</p>
+                </div>
+                <div class="col-2">
                 </div>
             </div>
             @foreach (var position in Model.Positions)
             {
-                <partial name="CartPosition" model="position"/>
+                <partial name="CartPosition" model="position" />
             }
 
         </div>
-        <div class="col-md-6">
-            <div class="row ">
-                <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-6">
                     <p>Suma cen produktów:</p>
+                </div>
+                <div class="col-6">
+                    <p>@Model.Sum</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
                     <p>Dostawa:</p>
+                </div>
+                <div class="col-6">
+                    <p>10 zł</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
                     <p>Razem:</p>
                 </div>
-                <div class="col-md-6">
-                    <p>@Model.Sum</p>
-                    <p>10 zł</p>
-                    <p>@((Model.Sum  + 10).ToString("c"))</p>
+                <div class="col-6">
+                    <p>@((Model.Sum + 10).ToString("c"))</p>
                 </div>
             </div>
             <div class="row mt-4">
