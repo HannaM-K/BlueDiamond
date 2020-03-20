@@ -31,7 +31,6 @@ namespace BlueDiamond.Models
                     );
                 context.SaveChanges();
             }
-
             if (!context.Products.Any())
             {
                 context.Products.AddRange(
