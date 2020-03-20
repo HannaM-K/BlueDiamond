@@ -15,12 +15,11 @@ namespace BlueDiamond.Models
         public List<Category> Categories { get; set; }
 
         public Product() { }
-        public Product(string name, string description, double price, List<Category> categories)
+        public Product(string name, string description, double price)
         {
             this.Name = name;
             this.Description = description;
             this.Price = price;
-            this.Categories = categories;
         }
     }
 }
