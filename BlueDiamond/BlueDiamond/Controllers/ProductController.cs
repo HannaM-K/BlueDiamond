@@ -2,6 +2,8 @@
 using BlueDiamond.Models.Interfaces;
 using BlueDiamond.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +21,27 @@ namespace BlueDiamond.Controllers
 
         public ViewResult List(string categoryName)
         {
-            return View(new ProductListViewModel
+            List<Product> products = null;
+            if (TempData.Count() > 0)
             {
-                Products = repository.Products.Where(p => categoryName == null || p.Categories.Any(c => c.Name == categoryName)),
-                CategoryNames = categoryName == null ? "Wszystkie" : categoryName
-            });
+                products = JsonConvert.DeserializeObject<List<Product>>(TempData["products"].ToString());
+            }
+            if (products != null)
+            {
+                return View(new ProductListViewModel
+                {
+                    Products = products,
+                    CategoryName = "Wszystkie"
+                });
+            }
+            else
+            {
+                return View(new ProductListViewModel
+                {
+                    Products = repository.Products.Where(p => categoryName == null || p.Categories.Any(c => c.Name == categoryName)),
+                    CategoryName = string.IsNullOrEmpty(categoryName) ? "Wszystkie" : categoryName
+                });
+            }
         }
 
         public ViewResult ProductDetails(int ID)
@@ -34,14 +52,20 @@ namespace BlueDiamond.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult FilterProducts(string productSearch)
+        public IActionResult FilterProducts(string valueToSearch)
         {
-            var productID = 0;
-            //to nie jest potrzebne, trzeba zrobic akcje List ktora przyjmie tylko parametr produktu czy cos
-            if (repository.Products.Exists(p => p.Name == productSearch))
+            List<Product> productsToShow = new List<Product>();
+            foreach (var product in repository.Products)
             {
-                productID = repository.Products.Where(p => p.Name == productSearch).FirstOrDefault().ID;
-                return RedirectToAction("ProductDetails", new { ID = productID });
+                if (product.Name.ToLower().Contains(valueToSearch.ToLower()))
+                {
+                    productsToShow.Add(product);
+                }
+            }
+            if (productsToShow.Count() > 0)
+            {
+                TempData["products"] = JsonConvert.SerializeObject(productsToShow);
+                return RedirectToAction("List");
             }
             else
             {
