@@ -38,5 +38,10 @@ namespace BlueDiamond.Models
                 positions.Remove(position);
             }
         }
+
+        public virtual void Clear()
+        {
+            positions.Clear();
+        }
     }
 }

@@ -34,5 +34,11 @@ namespace BlueDiamond.Models
             base.RemoveItem(product);
             Session.SetJson("Cart", this);
         }
+
+        public override void Clear()
+        {
+            base.Clear();
+            Session.Remove("Cart");
+        }
     }
 }
