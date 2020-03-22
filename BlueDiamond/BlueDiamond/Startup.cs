@@ -30,7 +30,6 @@ namespace BlueDiamond
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(s => SessionCart.GetCart(s));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddTransient<OrdersRepository>();
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
