@@ -1,6 +1,9 @@
-﻿<div class="container text-center bg-light p-5" style="min-height: 100vh">
+﻿@model Order
+
+<div class="container text-center bg-light p-5" style="min-height: 100vh">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="row mt-4 h-100 justify-content-center align-items-center">
-        <form style="width:80%">
+        <form asp-action="Index" method="post" style="width:80%">
             <div class="form-row form-group">
                 <div class="col-md-6 mb-4 mr-2">
                     <div class="form-group">
@@ -10,7 +13,7 @@
                                 <label for="userText">Imię:</label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" id="userText" placeholder="Imię">
+                                <input asp-for="Name" type="text" class="form-control" id="userText" placeholder="Imię">
                             </div>
                         </div>
                         <div class="form-row">
@@ -18,7 +21,7 @@
                                 <label for="nameText">Nazwisko:</label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" id="nameText" placeholder="Nazwisko">
+                                <input asp-for="Surname" type="text" class="form-control" id="nameText" placeholder="Nazwisko">
                             </div>
                         </div>
                         <div class="form-row">
@@ -26,7 +29,7 @@
                                 <label for="inputEmail4">E-mail:</label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="E-mail">
+                                <input asp-for="Email" type="email" class="form-control" id="inputEmail4" placeholder="E-mail">
                             </div>
                         </div>
                         <div class="form-row">
@@ -34,7 +37,7 @@
                                 <label for="userText">Nr telefonu:</label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" id="userText" placeholder="Nr telefonu">
+                                <input asp-for="PhoneNumber" type="text" class="form-control" id="userText" placeholder="Nr telefonu">
                             </div>
                         </div>
                     </div>
@@ -45,7 +48,7 @@
                                 <label for="userText">Ulica:</label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" id="userText" placeholder="Ulica">
+                                <input asp-for="Street" type="text" class="form-control" id="userText" placeholder="Ulica">
                             </div>
                         </div>
                         <div class="form-row">
@@ -53,7 +56,7 @@
                                 <label for="userText">Nr domu / lokalu:</label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" id="userText" placeholder="Nr domu / lokalu">
+                                <input asp-for="HouseNumber" type="text" class="form-control" id="userText" placeholder="Nr domu / lokalu">
                             </div>
                         </div>
                         <div class="form-row">
@@ -61,7 +64,7 @@
                                 <label for="userText">Miasto:</label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" id="userText" placeholder="Miasto">
+                                <input asp-for="City" type="text" class="form-control" id="userText" placeholder="Miasto">
                             </div>
                         </div>
                         <div class="form-row">
@@ -69,7 +72,7 @@
                                 <label for="userText">Kod pocztowy:</label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" id="userText" placeholder="Kod pocztowy">
+                                <input asp-for="ZipCode" type="text" class="form-control" id="userText" placeholder="Kod pocztowy">
                             </div>
                         </div>
                     </div>

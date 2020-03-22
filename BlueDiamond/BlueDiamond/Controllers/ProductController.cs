@@ -18,7 +18,6 @@ namespace BlueDiamond.Controllers
         {
             repository = repo;
         }
-
         public ViewResult List(string categoryName)
         {
             List<Product> products = null;
