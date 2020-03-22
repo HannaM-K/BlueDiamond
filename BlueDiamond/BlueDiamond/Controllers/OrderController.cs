@@ -19,12 +19,18 @@ namespace BlueDiamond.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("List", "Product", new { categoryName = string.Empty});
+                return RedirectToAction("OrderCompleted");
+                //return RedirectToAction("List", "Product", new { categoryName = string.Empty});
             }
             else
             {
                 return View(order);
             }
+        }
+
+        public ViewResult OrderCompleted()
+        {
+            return View();
         }
     }
 }
