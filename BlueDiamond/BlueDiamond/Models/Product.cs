@@ -16,9 +16,15 @@ namespace BlueDiamond.Models
         public double Price { get; set; }
         [NotMapped]
         public List<Category> Categories { get; set; }
+        [NotMapped]
+        public List<string> Images { get; set; }
 
-        public Product() { }
-        public Product(string name, string description, double price)
+        public Product()
+        {
+            this.Images = new List<string>();
+        }
+
+        public Product(string name, string description, double price) : base()
         {
             this.Name = name;
             this.Description = description;

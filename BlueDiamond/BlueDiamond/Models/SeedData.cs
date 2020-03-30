@@ -1,10 +1,12 @@
 ﻿using BlueDiamond.Models.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Builder.Internal;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +14,13 @@ namespace BlueDiamond.Models
 {
     public static class SeedData
     {
+        private enum Color
+        {
+            Red,
+            Blue,
+            Black
+        }
+
         public static void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDBContext context = app.ApplicationServices.GetRequiredService<ApplicationDBContext>();
@@ -31,6 +40,7 @@ namespace BlueDiamond.Models
                     );
                 context.SaveChanges();
             }
+
             if (!context.Products.Any())
             {
                 context.Products.AddRange(
@@ -53,6 +63,15 @@ namespace BlueDiamond.Models
                     );
                 context.SaveChanges();
             }
+
+            if (!context.Images.Any())
+            {
+                context.Images.AddRange(
+                    GetImages(new List<string> { "czerwone", "niebieskie", "czarne" }, context)
+                      );
+                context.SaveChanges();
+            }
+
             if (!context.ProductCategories.Any())
             {
                 context.ProductCategories.AddRange(
@@ -179,6 +198,59 @@ namespace BlueDiamond.Models
                   );
                 context.SaveChanges();
             }
+
+            AddImagesToProducts(context);
+        }
+
+        private static void AddImagesToProducts(ApplicationDBContext context)
+        {
+            foreach (var product in context.Products)
+            {
+                var images = context.Images.Where(i => i.ProductID == product.ID);
+                foreach (var image in images)
+                {
+                    product.Images.Add(Convert.ToBase64String(image.Img));
+                }
+            }
+        }
+
+        private static IEnumerable<Image> GetImages(List<string> list, ApplicationDBContext context)
+        {
+            List<Image> images = new List<Image>();
+            foreach (var category in list)
+            {
+                var products = context.Products.SelectMany(p => p.Categories.Where(c => c.Name.Contains(category))).ToList();
+                foreach (var product in products)
+                {
+                    Image image = new Image { ProductID = product.ID, Img = ImageToByteArray(Color.Black, string.Empty) };
+                    images.Add(image);
+
+                    image = new Image { ProductID = product.ID, Img = ImageToByteArray(Color.Black, "turned_") };
+                    images.Add(image);
+                }
+            }
+            return images;
+        }
+
+        private static byte[] ImageToByteArray(Color color, string partialPath)
+        {
+            string path = "images/case_"+ partialPath;
+            byte[] imageBytes;
+            switch (color)
+            {
+                case Color.Red:
+                    path += "red.png";
+                    break;
+                case Color.Blue:
+                    path += "blue.png";
+                    break;
+                case Color.Black:
+                    path += "black.png";
+                    break;
+            }
+
+            imageBytes = File.ReadAllBytes(path);
+            return imageBytes;
         }
 
         private static Category FindCategory(string categoryName, ApplicationDBContext context)
