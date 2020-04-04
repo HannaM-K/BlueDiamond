@@ -23,7 +23,12 @@ namespace BlueDiamond.Controllers
             List<Product> products = null;
             if (TempData.Count() > 0)
             {
-                products = JsonConvert.DeserializeObject<List<Product>>(TempData["products"].ToString());
+               var productIDs = JsonConvert.DeserializeObject<List<int>>(TempData["productIDs"].ToString());
+                products = new List<Product>();
+                foreach (var productID in productIDs)
+                {
+                    products.Add(repository.Products.Single(p => p.ID == productID));
+                }
             }
             if (products != null)
             {
@@ -60,18 +65,18 @@ namespace BlueDiamond.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult FilterProducts(string valueToSearch)
         {
-            List<Product> productsToShow = new List<Product>();
+            List<int> productIDs = new List<int>();
             foreach (var product in repository.Products)
             {
                 if (product.Name.ToLower().Contains(valueToSearch.ToLower()))
                 {
-                    productsToShow.Add(product);
+                    productIDs.Add(product.ID);
                 }
             }
-            if (productsToShow.Count() > 0)
+            if (productIDs.Count() > 0)
             {
-                TempData["products"] = JsonConvert.SerializeObject(productsToShow);
-                return RedirectToAction("List");
+                TempData["productIDs"] = JsonConvert.SerializeObject(productIDs);
+                return RedirectToAction("List", "Product");
             }
             else
             {
