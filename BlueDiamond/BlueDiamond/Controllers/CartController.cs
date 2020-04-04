@@ -62,6 +62,12 @@ namespace BlueDiamond.Controllers
             return RedirectToAction("ShowCart");
         }
 
+        [HttpGet]
+        public RedirectToActionResult GetImageFile(int productID, bool horizontal = false)
+        {
+            return RedirectToAction("GetImageFile", "Product", new { productID = productID, horizontal = horizontal});
+        }
+
         private Product FindProductByID(int productID)
         {
             return repository.Products.ToList().FirstOrDefault(p => p.ID == productID);

@@ -49,6 +49,13 @@ namespace BlueDiamond.Controllers
             return View(product);
         }
 
+        [HttpGet("imageFile")]
+        public async Task<IActionResult> GetImageFile(int productID, bool horizontal = false)
+        {
+            var imageBytes = repository.Products.Single(p => p.ID == productID).Images.Single(i => i.Type == (horizontal ? 1 : 0)).Img;
+            return File(imageBytes, "image/png");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult FilterProducts(string valueToSearch)

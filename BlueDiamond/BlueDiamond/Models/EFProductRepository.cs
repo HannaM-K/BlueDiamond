@@ -18,13 +18,19 @@ namespace BlueDiamond.Models
         {
             get
             {
+                //warto by bylo chyba tworzyc tabele tymczasowe lub robic roznicowke, a nie za kazdym razem odpytywac baze
                 List<Category> categories = new List<Category>();
                 foreach (var product in context.Products)
                 {
                     var productCategories = context.ProductCategories.Where(pc => pc.ProductID == product.ID);
+                    var images = context.Images.Where(i => i.ProductID == product.ID);
                     foreach (var productCategory in productCategories)
                     {
                         categories.Add(context.Categories.Where(c => c.ID == productCategory.CategoryID).FirstOrDefault());
+                    }
+                    foreach (var image in images)
+                    {
+                        product.Images.Add(image);
                     }
                     product.Categories = new List<Category>();
                     product.Categories.AddRange(categories);

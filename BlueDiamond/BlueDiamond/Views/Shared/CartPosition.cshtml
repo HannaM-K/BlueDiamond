@@ -2,7 +2,7 @@
 
 <div class="row justify-content-center align-items-center" >
     <div class="col-2">
-        <img src="images/background8.png">
+        <img src="@Url.Action("GetImageFile", new { productID = this.Model.Product.ID})" style="width: 100px; height:100px;">
         <p>@Model.Product.Name</p>
     </div>
     <div class="col-2">

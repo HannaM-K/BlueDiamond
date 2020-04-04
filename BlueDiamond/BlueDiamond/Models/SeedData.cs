@@ -14,16 +14,10 @@ namespace BlueDiamond.Models
 {
     public static class SeedData
     {
-        private enum Color
-        {
-            Red,
-            Blue,
-            Black
-        }
-
         public static void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDBContext context = app.ApplicationServices.GetRequiredService<ApplicationDBContext>();
+            IProductRepository repository = new EFProductRepository(context);
             context.Database.Migrate();
 
             if (!context.Categories.Any())
@@ -61,14 +55,6 @@ namespace BlueDiamond.Models
                     new Product("Etui Samsung Czerwone", "Stylowe etui w kolorze czerwonym, wykonane z trwałego plastiku.", 14.88),
                     new Product("Etui Samsung Niebieskie", "Stylowe etui w kolorze niebieskim, wykonane z trwałego plastiku.", 20.50)
                     );
-                context.SaveChanges();
-            }
-
-            if (!context.Images.Any())
-            {
-                context.Images.AddRange(
-                    GetImages(new List<string> { "czerwone", "niebieskie", "czarne" }, context)
-                      );
                 context.SaveChanges();
             }
 
@@ -199,52 +185,48 @@ namespace BlueDiamond.Models
                 context.SaveChanges();
             }
 
-            AddImagesToProducts(context);
+            if (!context.Images.Any())
+            {
+                context.Images.AddRange(
+                    GetImages(new List<string> { "czerwone", "niebieskie", "czarne" }, context)
+                      );
+                context.SaveChanges();
+            }
+
         }
 
-        private static void AddImagesToProducts(ApplicationDBContext context)
-        {
-            foreach (var product in context.Products)
-            {
-                var images = context.Images.Where(i => i.ProductID == product.ID);
-                foreach (var image in images)
-                {
-                    product.Images.Add(Convert.ToBase64String(image.Img));
-                }
-            }
-        }
 
         private static IEnumerable<Image> GetImages(List<string> list, ApplicationDBContext context)
         {
             List<Image> images = new List<Image>();
             foreach (var category in list)
             {
-                var products = context.Products.SelectMany(p => p.Categories.Where(c => c.Name.Contains(category))).ToList();
-                foreach (var product in products)
+                var productList = context.Products.Where(p => p.Name.ToLower().Contains(category.ToLower())).ToList();
+                foreach (var product in productList)
                 {
-                    Image image = new Image { ProductID = product.ID, Img = ImageToByteArray(Color.Black, string.Empty) };
+                    Image image = new Image { ProductID = product.ID, Img = ImageToByteArray(category, string.Empty), Type = 0 };
                     images.Add(image);
 
-                    image = new Image { ProductID = product.ID, Img = ImageToByteArray(Color.Black, "turned_") };
+                    image = new Image { ProductID = product.ID, Img = ImageToByteArray(category, "turned_"), Type = 1};
                     images.Add(image);
                 }
             }
             return images;
         }
 
-        private static byte[] ImageToByteArray(Color color, string partialPath)
+        private static byte[] ImageToByteArray(string category, string partialPath)
         {
-            string path = "images/case_"+ partialPath;
+            string path = "wwwroot/images/case_"+ partialPath;
             byte[] imageBytes;
-            switch (color)
+            switch (category)
             {
-                case Color.Red:
+                case "czerwone":
                     path += "red.png";
                     break;
-                case Color.Blue:
+                case "niebieskie":
                     path += "blue.png";
                     break;
-                case Color.Black:
+                case "czarne":
                     path += "black.png";
                     break;
             }

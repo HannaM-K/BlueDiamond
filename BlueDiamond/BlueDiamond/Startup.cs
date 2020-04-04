@@ -55,7 +55,7 @@ namespace BlueDiamond
                     name: "default",
                     template: "{controller=Product}/{action=List}");
             });
-            SeedData.EnsurePopulated(app);
+            SeedData.EnsurePopulated( app);
         }
     }
 }

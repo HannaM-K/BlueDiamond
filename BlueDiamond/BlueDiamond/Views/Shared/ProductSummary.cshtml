@@ -2,7 +2,7 @@
 
 <div class="ml-5">
     <a asp-controller="Product" asp-action="ProductDetails"  asp-route-ID="@Model.ID">
-        <img src="./images/background7.png"/>
+        <img src="@Url.Action("GetImageFile", new { productID = this.Model.ID})" style="width: 300px; height: 300px;" >
     </a>
     <div class="container">
         <div class="row m-2">

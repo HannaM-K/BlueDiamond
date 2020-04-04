@@ -10,6 +10,10 @@ namespace BlueDiamond.Models
     {
         public int ID { get; set; }
         public int ProductID { get; set; }
+        /// <summary>
+        /// 0 - Vertical, 1 - horizontal
+        /// </summary>
+        public int Type { get; set; }
         public byte[] Img { get; set; }
     }
 }

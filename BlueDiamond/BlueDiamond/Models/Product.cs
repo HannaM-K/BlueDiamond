@@ -17,11 +17,11 @@ namespace BlueDiamond.Models
         [NotMapped]
         public List<Category> Categories { get; set; }
         [NotMapped]
-        public List<string> Images { get; set; }
+        public List<Image> Images { get; set; }
 
         public Product()
         {
-            this.Images = new List<string>();
+            this.Images = new List<Image>();
         }
 
         public Product(string name, string description, double price) : base()
